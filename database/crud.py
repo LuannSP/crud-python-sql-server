@@ -59,3 +59,16 @@ def delete(table: str, registration: str) -> bool:
         return True
     finally:
         connect.close()
+
+def update(table: str, column: str, value: str, registration: str):
+    sql = f"UPDATE {table} SET {column} = '{value}' WHERE Matricula = '{registration}'"
+    connect = getCursorConnect()[1]
+    try:
+        cursor = getCursorConnect()[0].execute(sql)
+        cursor.commit()
+    except pyodbc.ProgrammingError:
+        return False
+    else:
+        return True
+    finally:
+        connect.close()

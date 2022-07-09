@@ -1,4 +1,3 @@
-from sqlite3 import Cursor, connect
 import pyodbc
 from typing import List, Literal, Any
 
@@ -15,8 +14,8 @@ def getCursorConnect() -> tuple[pyodbc.Connection, pyodbc.Cursor]:
     return cursor, connect
 
 
-def read(column: str, table: str) -> (List[Any] | Literal[False] | None):
-    sql = f"SELECT {column} FROM {table}"
+def read(column: str, table: str, limit: int = 10) -> (List[Any] | Literal[False] | None):
+    sql = f"SELECT TOP ({limit}) {column} FROM {table}"
     connect = getCursorConnect()[1]
     try:
         cursor = getCursorConnect()[0].execute(sql)
@@ -60,7 +59,8 @@ def delete(table: str, registration: str) -> bool:
     finally:
         connect.close()
 
-def update(table: str, column: str, value: str, registration: str):
+
+def update(table: str, column: str, value: str, registration: str) -> bool:
     sql = f"UPDATE {table} SET {column} = '{value}' WHERE Matricula = '{registration}'"
     connect = getCursorConnect()[1]
     try:

@@ -1,3 +1,4 @@
+from sqlite3 import Cursor, connect
 import pyodbc
 from typing import List, Literal, Any
 
@@ -34,6 +35,20 @@ def read(column: str, table: str) -> (List[Any] | Literal[False] | None):
 
 def insert(table: str, column: str, value: str) -> bool:
     sql = f"INSERT INTO {table} ({column}) VALUES ({value})"
+    connect = getCursorConnect()[1]
+    try:
+        cursor = getCursorConnect()[0].execute(sql)
+        cursor.commit()
+    except pyodbc.ProgrammingError:
+        return False
+    else:
+        return True
+    finally:
+        connect.close()
+
+
+def delete(table: str, registration: str) -> bool:
+    sql = f"DELETE FROM {table} WHERE Matricula = '{registration}'"
     connect = getCursorConnect()[1]
     try:
         cursor = getCursorConnect()[0].execute(sql)

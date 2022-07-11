@@ -1,5 +1,3 @@
-from operator import truediv
-from sqlite3 import connect
 import pyodbc
 from typing import List, Literal, Any, final
 

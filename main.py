@@ -1,4 +1,4 @@
-from database.crud import *
+from database.crud import delete, read, insert, returnExists
 import datetime
 
 while True:
@@ -18,12 +18,12 @@ while True:
         continue
 
     if option == 1:
-        list = read("Matricula, Nome, DataNascimento", "Aluno")
-        if list is None:
+        command = read("Matricula, Nome, DataNascimento", "Aluno")
+        if command is None:
             print("\nSeu banco de dados está vazio.")
             continue
-        print(f"\n| Exibindo {list.__len__()} alunos(as) |\n")
-        for count, i in enumerate(list, 1):
+        print(f"\n| Exibindo {command.__len__()} alunos(as) |\n")
+        for count, i in enumerate(command, 1):
             print(f"{count}: | Matricula: {i[0]} | Nome: {i[1]} | Data de nascimento: {i[2]} |")
 
     if option == 2:
@@ -32,11 +32,20 @@ while True:
             date = input("Digite a data de nascimento do novo aluno(a): ")
             date = datetime.datetime.strptime(date, "%d/%m/%Y")
             date = str(f"{date.year}/{date.month}/{date.day}")
-            if type(name) != str:
-                raise ValueError
-            command = insert("Aluno", "Nome, DataNascimento", "'{}','{}'".format(name, date))            
+            command = insert("Aluno", "Nome, DataNascimento", f"'{name}','{date}'")       
             if command:
                 print(f"\nO aluno(a): {name} foi adicionado.")
         except ValueError:
             print("\nTente novamente, exemplo:\nNome: Nome do aluno\nData de nascimento: 00/00/0000")
             continue
+    
+    if option == 3:
+        registration = str(input("Digite a matricula do aluno: "))
+        if returnExists("matricula", "Aluno", "Matricula", f"{registration}"):            
+            command = delete("Aluno", "Matricula", f"{registration}")
+            if command:
+                print(f"\nO aluno(a) com a matricula {registration} foi removido(a).")
+            else:
+                print('error')
+        else:
+            print(f"\nO aluno(a) com a matricula {registration} não existe.")

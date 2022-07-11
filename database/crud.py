@@ -1,5 +1,5 @@
 import pyodbc
-from typing import List, Literal, Any, final
+from typing import List, Literal, Any
 
 
 def getCursorConnect() -> tuple[pyodbc.Connection, pyodbc.Cursor]:

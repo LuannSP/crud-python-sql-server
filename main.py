@@ -1,21 +1,14 @@
 from database.crud import delete, read, insert, returnExists, update
 import datetime
 
+def convertDate(date: str) -> str:
+    date = datetime.datetime.strptime(date, "%d/%m/%Y")
+    date = str(f"{date.year}/{date.month}/{date.day}")
+    return date
 
 while True:
-    print("""
-1 - Exibir todos os alunos(as)
-2 - Adicionar um aluno(a)
-3 - Remover um aluno(a)
-4 - Atualizar dados de um aluno(a)
-""")
 
-
-    def convertDate(date: str) -> str:
-        date = datetime.datetime.strptime(date, "%d/%m/%Y")
-        date = str(f"{date.year}/{date.month}/{date.day}")
-        return date
-
+    print("1 - Exibir todos os alunos(as)\n2 - Adicionar um aluno(a)\n3 - Remover um aluno(a)\n4 - Atualizar dados de um aluno(a)\n")
 
     try:
         option = int(input("Digite: "))
@@ -23,7 +16,6 @@ while True:
             raise ValueError
     except ValueError:
         print("\nTente novamente, somente valores de 1 a 4.")
-
 
     if option == 1:
         command = read("Matricula, Nome, DataNascimento", "Aluno")
@@ -33,7 +25,6 @@ while True:
         print(f"\n| Exibindo {command.__len__()} alunos(as) |\n")
         for count, i in enumerate(command, 1):
             print(f"{count}: | Matricula: {i[0]} | Nome: {i[1]} | Data de nascimento: {i[2]} |")
-
 
     if option == 2:
         try:
@@ -47,7 +38,6 @@ while True:
         if command:
             print(f"\nO aluno(a): {name} foi adicionado.")
     
-
     if option == 3:
         registration = str(input("Digite a matricula do aluno: "))
         if not returnExists("Matricula", "Aluno", "Matricula", f"{registration}"):            
@@ -57,7 +47,6 @@ while True:
         if command:
             print(f"\nO aluno(a) com a matricula '{registration}' foi removido(a).")
     
-
     if option == 4:
         registration = str(input("Digite a matricula do aluno: "))
         if not returnExists("Matricula", "Aluno", "Matricula", f"{registration}"):
@@ -86,4 +75,3 @@ while True:
             command = update("Aluno", "DataNascimento", f"{newDate}", "Matricula", f"{registration}")      
             if command:
                 print(f"\nO aluno(a) com a matricula '{registration}', teve a sua data de nascimento alterada para '{newDate}'")
-

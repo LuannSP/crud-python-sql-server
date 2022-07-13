@@ -2,18 +2,33 @@
 
 **(Trabalho em andamento)**
 
-- CRUD:
-  - Inserção.
-  - Leitura.
-  - Atualização.
-  - Remoção.
-  - Verificar se existe tal dado no banco de dados.
+- CRUD: ***OK***
+  - SQL Server
+    - Inserção.                                       
+    - Leitura.                                         
+    - Atualização.                                    
+    - Remoção.                                         
+    - Verificar se existe tal dado no banco de dados.
   
-- Sistema:
-  - Exibir todos os alunos(as)
-  - Adicionar um novo aluno(a)
-  - Remover um aluno(a)
-  - Atualizar dados de um aluno(a)
+- Opções-Alunos: ***OK***
+	- Aluno
+		- Leitura.
+		- Inserção.  
+		- Remoção.    
+		- Atualização.
+
+- Opções-Disciplinas: ***em progresso***
+	- Disciplina
+		- Leitura.
+		- Inserção.
+		- Remoção.
+		- Atualização.
+
+- Opções-Disciplinas-Matriculadas:
+  - DisciplinasMastriculadas
+	  - Matricular.
+	  - Desmatricular.
+    - Leitura.
   
   
 **Banco de dados** ***(Microsoft SQL Server)***: [Github Repositório](https://github.com/LuannSP/sql-table-simple-college)

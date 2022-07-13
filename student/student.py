@@ -1,6 +1,7 @@
 from database.crud import delete, read, insert, returnExists, update
 import datetime
 
+_attempt: int = 0 
 
 def convertDate(date: str) -> str:
     date = datetime.datetime.strptime(date, "%d/%m/%Y")
@@ -12,6 +13,7 @@ def readStudent() -> None:
     command = read("Matricula, Nome, DataNascimento", "Aluno")
     if command is None:
         print("\nSeu banco de dados está vazio.")
+        return
     print(f"\n| Exibindo {command.__len__()} alunos(as) |\n")
     for count, i in enumerate(command, 1):
         print(f"{count}: | Matricula: {i[0]} | Nome: {i[1]} | Data de nascimento: {i[2]} |")
@@ -25,11 +27,17 @@ def addStudent() -> None:
         if name == "":
             raise ValueError
     except ValueError:
-        print("\nTente novamente, exemplo:\nNome: Nome do aluno\nData de nascimento: 00/00/0000")
-        return
-    command = insert("Aluno", "Nome, DataNascimento", f"'{name}','{date}'")
-    if command:
-        print(f"\nO aluno(a): '{name}' foi adicionado.")
+        global _attempt
+        if _attempt == 2:
+            print("\nTente novamente, retornando opções.")
+            return
+        print("\nTente novamente, exemplo:\n * Nome: Nome do aluno\n * Data de nascimento: 00/00/0000\n")
+        _attempt += 1
+        addStudent()
+    else:
+        command = insert("Aluno", "Nome, DataNascimento", f"'{name}','{date}'")
+        if command:
+            print(f"\nO aluno(a): '{name}' foi adicionado.")
 
 
 def removeStudent() -> None:

@@ -73,6 +73,7 @@ def update(table: str, column: str, value: str, conditional: str, registration: 
     finally:
         connect.close()
 
+
 def returnExists(column: str, table: str, conditional: str, input: str) -> bool:
     sql = f"SELECT {column} FROM {table} WHERE {conditional} = '{input}'"
     connect = getCursorConnect()[1]

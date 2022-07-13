@@ -46,8 +46,8 @@ def insert(table: str, column: str, value: str) -> bool:
         connect.close()
 
 
-def delete(table: str, conditional: str, input: str) -> bool:
-    sql = f"DELETE FROM {table} WHERE {conditional} = '{input}'"
+def delete(table: str, conditional: str, conditional2: str) -> bool:
+    sql = f"DELETE FROM {table} WHERE {conditional} = '{conditional2}'"
     connect = getCursorConnect()[1]
     try:
         cursor = getCursorConnect()[0].execute(sql)
@@ -60,8 +60,8 @@ def delete(table: str, conditional: str, input: str) -> bool:
         connect.close()
 
 
-def update(table: str, column: str, value: str, conditional: str, registration: str) -> bool:
-    sql = f"UPDATE {table} SET {column} = '{value}' WHERE {conditional} = '{registration}'"
+def update(table: str, column: str, value: str, conditional: str, conditional2: str) -> bool:
+    sql = f"UPDATE {table} SET {column} = '{value}' WHERE {conditional} = '{conditional2}'"
     connect = getCursorConnect()[1]
     try:
         cursor = getCursorConnect()[0].execute(sql)
@@ -74,8 +74,8 @@ def update(table: str, column: str, value: str, conditional: str, registration: 
         connect.close()
 
 
-def returnExists(column: str, table: str, conditional: str, input: str) -> bool:
-    sql = f"SELECT {column} FROM {table} WHERE {conditional} = '{input}'"
+def returnExists(column: str, table: str, conditional: str, conditional2: str) -> bool:
+    sql = f"SELECT {column} FROM {table} WHERE {conditional} = '{conditional2}'"
     connect = getCursorConnect()[1]
     try:
         cursor = getCursorConnect()[0].execute(sql)

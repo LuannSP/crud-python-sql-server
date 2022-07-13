@@ -1,6 +1,7 @@
 from database.crud import delete, read, insert, returnExists, update
 import datetime
 
+
 def convertDate(date: str) -> str:
     date = datetime.datetime.strptime(date, "%d/%m/%Y")
     date = str(f"{date.year}/{date.month}/{date.day}")
@@ -31,7 +32,7 @@ def addStudent() -> None:
         print(f"\nO aluno(a): '{name}' foi adicionado.")
 
 
-def removeStudent():
+def removeStudent() -> None:
     registration = str(input("Digite a matricula do aluno: "))
     if not returnExists("Matricula", "Aluno", "Matricula", f"{registration}"):
         print(f"\nO aluno(a) com a matricula '{registration}' não existe.")
@@ -41,7 +42,7 @@ def removeStudent():
         print(f"\nO aluno(a) com a matricula '{registration}' foi removido(a).")
 
 
-def updateStudent():
+def updateStudent() -> None:
     registration = str(input("Digite a matricula do aluno: "))
     if not returnExists("Matricula", "Aluno", "Matricula", f"{registration}"):
         print(f"\nO aluno(a) com a matricula '{registration}' não existe.")
@@ -49,7 +50,7 @@ def updateStudent():
     print("\n1 - Alterar o nome do aluno(a)\n2 - Alterar a data de nascimento\n")
     try:
         option = int(input("Digite: "))
-        if option > 2 or option < 1:
+        if not 0 < option < 3:
             raise ValueError
     except ValueError:
         print("\nTente novamente, somente 1 ou 2.")
